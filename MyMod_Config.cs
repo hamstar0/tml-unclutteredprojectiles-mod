@@ -9,7 +9,7 @@ namespace UnclutteredProjectiles {
 
 
 		public static int GetDustRemoveDistanceSquared() {
-			return 36864;   //12 blocks (squared)
+			return 65536;   //16 blocks (squared)
 		}
 
 
@@ -24,7 +24,7 @@ namespace UnclutteredProjectiles {
 
 
 		public static float GetProjectileDimPercent() {
-			return 0.95f;
+			return 0.9f;
 		}
 	}
 }
