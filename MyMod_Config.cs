@@ -10,6 +10,16 @@ namespace UnclutteredProjectiles {
 
 		////
 
+		public static bool AreFriendlyProjectilesLikelySpam() {
+			return true;
+		}
+
+		public static bool AreHostileProjectilesLikelySpam() {
+			return false;
+		}
+
+		////
+
 		public static bool UnclutterDuringBosses() {
 			return true;
 		}
@@ -28,7 +38,7 @@ namespace UnclutteredProjectiles {
 
 
 		////
-
+		
 		public static int GetDustRemoveRate() {
 			return 2000;
 		}
@@ -36,7 +46,7 @@ namespace UnclutteredProjectiles {
 		////
 
 		public static int GetDustRemoveDistanceSquared() {
-			return 65536;   //16 blocks (squared)
+			return 25600;   //10 blocks (squared)
 		}
 
 		public static int GetProjectileDimNearBossDistanceSquared() {
@@ -44,7 +54,7 @@ namespace UnclutteredProjectiles {
 		}
 
 		public static int GetProjectileDimNearCurrentPlayerDistanceSquared() {
-			return 36864;	//12 blocks (squared)
+			return 589824;	//48 blocks (squared)
 		}
 
 		////

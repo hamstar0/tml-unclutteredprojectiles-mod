@@ -13,9 +13,12 @@ namespace UnclutteredProjectiles {
 
 
 		////////////////
-
+		
 		public static bool IsSpamProjectile( Projectile projectile ) {
-			return projectile.hostile && UPMod.IsSpamLikely();
+			return UPMod.IsSpamLikely() && (
+				( UPMod.AreFriendlyProjectilesLikelySpam() && projectile.friendly )
+				|| ( UPMod.AreHostileProjectilesLikelySpam() && projectile.hostile )
+			);
 		}
 
 		public static void RemoveDustsNearProjectiles( int dustStartIdx, int dustAmount ) {
