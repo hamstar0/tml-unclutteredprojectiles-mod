@@ -7,10 +7,6 @@ using Terraria.ModLoader;
 
 namespace UnclutteredProjectiles {
 	class UPPlayer : ModPlayer {
-		private const int DustRemovals = 1500;
-
-
-
 		public static bool IsNearMe( Vector2 position ) {
 			int mydist = (int)Vector2.DistanceSquared( position, Main.LocalPlayer.position );
 
@@ -41,9 +37,11 @@ namespace UnclutteredProjectiles {
 			if( ++this.Timer >= 10 ) {
 				this.Timer = 0;
 
-				UPProjectile.RemoveDustsNearProjectiles( this.DustRangeCheckIdx, UPPlayer.DustRemovals );
+				int dustsGone = UPMod.GetDustRemoveRate();
 
-				this.DustRangeCheckIdx += UPPlayer.DustRemovals;
+				UPProjectile.RemoveDustsNearProjectiles( this.DustRangeCheckIdx, dustsGone );
+
+				this.DustRangeCheckIdx += dustsGone;
 				if( this.DustRangeCheckIdx >= Main.dust.Length ) {
 					this.DustRangeCheckIdx = 0;
 				}

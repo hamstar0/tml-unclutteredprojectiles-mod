@@ -10,7 +10,21 @@ namespace UnclutteredProjectiles {
 
 
 		////////////////
-		
+
+		public static bool IsSpamLikely() {
+			bool unclutBoss = UPMod.UnclutterDuringBosses();
+			bool unclutEclip = UPMod.UnclutterDuringEclipses();
+			bool unclutInvas = UPMod.UnclutterDuringInvasions();
+			bool unclutLunar = UPMod.UnclutterDuringLunarApocalypse();
+
+			return ( unclutBoss && UPNpc.IsAnyBossActive() )
+				|| ( unclutEclip && Main.eclipse )
+				|| ( unclutInvas && Main.invasionType != 0 )
+				|| ( unclutInvas && Main.pumpkinMoon )
+				|| ( unclutInvas && Main.snowMoon )
+				|| ( unclutLunar && NPC.LunarApocalypseIsUp );
+		}
+
 		public static void RemoveDustsNearPosition( Vector2 position, int dustIdxStart, int dustAmount ) {
 			var mymod = UPMod.Instance;
 			int dustsCleaned = 0;

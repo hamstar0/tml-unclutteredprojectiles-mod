@@ -14,6 +14,17 @@ namespace UnclutteredProjectiles {
 
 		////////////////
 
+		public static bool IsAnyBossActive() {
+			foreach( int npcWho in UPNpc.BossWhos.ToArray() ) {
+				NPC npc = Main.npc[npcWho];
+				if( npc == null || !npc.active ) {
+					UPNpc.BossWhos.Remove( npcWho );
+				}
+			}
+
+			return UPNpc.BossWhos.Count > 0;
+		}
+
 		public static bool IsNearBoss( Vector2 position ) {
 			foreach( int npcWho in UPNpc.BossWhos.ToArray() ) {
 				NPC npc = Main.npc[npcWho];
