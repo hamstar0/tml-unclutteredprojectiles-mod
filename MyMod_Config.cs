@@ -1,0 +1,25 @@
+using Terraria.ModLoader;
+
+
+namespace UnclutteredProjectiles {
+	partial class UPMod : Mod {
+		public static int GetDustRemoveDistanceSquared() {
+			return 36864;   //12 blocks (squared)
+		}
+
+
+		public static int GetProjectileDimNearBossDistanceSquared() {
+			return 36864;   //12 blocks (squared)
+		}
+
+
+		public static int GetProjectileDimNearCurrentPlayerDistanceSquared() {
+			return 36864;	//12 blocks (squared)
+		}
+
+
+		public static float GetProjectileDimPercent() {
+			return 0.95f;
+		}
+	}
+}

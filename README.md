@@ -1,0 +1,3 @@
+# Uncluttered Projectiles
+
+Uncluttered Projectiles reduces the visibility clutter of any player's projectiles and dusts near the current player and bosses.

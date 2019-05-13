@@ -1,0 +1,9 @@
+author = hamstar
+version = 0.9.1
+displayName = Uncluttered Projectiles
+weakReferences = HamstarHelpers@4.4.0
+buildIgnore = *.csproj, *.user, *.bat, obj\*, bin\*, .vs\*, .git\*
+languageVersion = 6
+hideCode = true
+hideResources = true
+includeSource = false
