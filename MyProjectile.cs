@@ -14,6 +14,10 @@ namespace UnclutteredProjectiles {
 
 		////////////////
 
+		public static bool IsSpamProjectile( Projectile projectile ) {
+			return projectile.hostile;
+		}
+
 		public static void RemoveDustsNearProjectiles( int dustStartIdx, int dustAmount ) {
 			foreach( int projWho in UPProjectile.HiddenProjectiles.ToArray() ) {
 				Projectile proj = Main.projectile[ projWho ];
@@ -48,7 +52,7 @@ namespace UnclutteredProjectiles {
 			if( this.HidePercent > 0f ) {
 				float percent = this.HidePercent * UPMod.GetProjectileDimPercent();
 
-				projectile.alpha = (int)(percent * 255f);
+				projectile.alpha = (int)( percent * 255f );
 			}
 			return base.PreDraw( projectile, spriteBatch, lightColor );
 		}
@@ -56,7 +60,7 @@ namespace UnclutteredProjectiles {
 		////////////////
 
 		public override bool PreAI( Projectile projectile ) {
-			if( projectile.npcProj /*|| projectile.owner == Main.myPlayer*/ ) {
+			if( UPProjectile.IsSpamProjectile(projectile) ) {
 				return base.PreAI( projectile );
 			}
 
@@ -66,12 +70,16 @@ namespace UnclutteredProjectiles {
 				if( this.HidingState == 0 ) {
 					if( UPPlayer.IsNearMe( projectile.position ) || UPNpc.IsNearBoss( projectile.position ) ) {
 						if( this.HidePercent < 1f ) {
-Main.NewText("-hide "+projectile.Name+" "+projectile.whoAmI);
+							if( UPMod.IsDebugModeInfo() ) {
+								Main.NewText( "-hide " + projectile.Name + " " + projectile.whoAmI );
+							}
 							this.HidingState = 1;
 						}
 					} else {
 						if( this.HidePercent > 0f ) {
-Main.NewText("+show "+projectile.Name+" "+projectile.whoAmI);
+							if( UPMod.IsDebugModeInfo() ) {
+								Main.NewText( "+show " + projectile.Name + " " + projectile.whoAmI );
+							}
 							this.HidingState = -1;
 						}
 					}

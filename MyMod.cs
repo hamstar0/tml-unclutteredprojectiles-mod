@@ -13,6 +13,7 @@ namespace UnclutteredProjectiles {
 		
 		public static void RemoveDustsNearPosition( Vector2 position, int dustIdxStart, int dustAmount ) {
 			var mymod = UPMod.Instance;
+			int dustsCleaned = 0;
 
 			int max = dustIdxStart + dustAmount;
 			if( max >= Main.dust.Length ) {
@@ -24,9 +25,13 @@ namespace UnclutteredProjectiles {
 				if( dust == null || !dust.active ) { continue; }
 				
 				if( Vector2.DistanceSquared(dust.position, position ) < UPMod.GetDustRemoveDistanceSquared() ) {  // 8 blocks
-Main.NewText(" -dust "+ i);
 					Main.dust[i] = new Dust();
+					dustsCleaned++;
 				}
+			}
+
+			if( UPMod.IsDebugModeInfo() && dustsCleaned > 0 ) {
+				Main.NewText( "dusts cleared: " + dustsCleaned );
 			}
 		}
 

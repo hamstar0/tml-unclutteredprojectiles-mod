@@ -7,7 +7,7 @@ using Terraria.ModLoader;
 
 namespace UnclutteredProjectiles {
 	class UPPlayer : ModPlayer {
-		private const int DustRemovals = 2000;
+		private const int DustRemovals = 1500;
 
 
 
