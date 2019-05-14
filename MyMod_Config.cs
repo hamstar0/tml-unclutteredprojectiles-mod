@@ -54,7 +54,7 @@ namespace UnclutteredProjectiles {
 		}
 
 		public static int GetProjectileDimNearCurrentPlayerDistanceSquared() {
-			return 589824;	//48 blocks (squared)
+			return 2359296;	//96 blocks (squared)
 		}
 
 		////

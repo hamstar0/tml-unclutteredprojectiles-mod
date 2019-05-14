@@ -1,6 +1,7 @@
-using Microsoft.Xna.Framework;
-using Terraria;
+using HamstarHelpers.Components.Config;
+using HamstarHelpers.Helpers.TmlHelpers.ModHelpers;
 using Terraria.ModLoader;
+using UnclutteredProjectiles.Config;
 
 
 namespace UnclutteredProjectiles {
@@ -11,43 +12,8 @@ namespace UnclutteredProjectiles {
 
 		////////////////
 
-		public static bool IsSpamLikely() {
-			bool unclutBoss = UPMod.UnclutterDuringBosses();
-			bool unclutEclip = UPMod.UnclutterDuringEclipses();
-			bool unclutInvas = UPMod.UnclutterDuringInvasions();
-			bool unclutLunar = UPMod.UnclutterDuringLunarApocalypse();
-
-			return ( unclutBoss && UPNpc.IsAnyBossActive() )
-				|| ( unclutEclip && Main.eclipse )
-				|| ( unclutInvas && Main.invasionType != 0 )
-				|| ( unclutInvas && Main.pumpkinMoon )
-				|| ( unclutInvas && Main.snowMoon )
-				|| ( unclutLunar && NPC.LunarApocalypseIsUp );
-		}
-
-		public static void RemoveDustsNearPosition( Vector2 position, int dustIdxStart, int dustAmount ) {
-			var mymod = UPMod.Instance;
-			int dustsCleaned = 0;
-
-			int max = dustIdxStart + dustAmount;
-			if( max >= Main.dust.Length ) {
-				max = Main.dust.Length - 1;
-			}
-
-			for( int i = dustIdxStart; i < max; i++ ) {
-				var dust = Main.dust[i];
-				if( dust == null || !dust.active ) { continue; }
-				
-				if( Vector2.DistanceSquared(dust.position, position ) < UPMod.GetDustRemoveDistanceSquared() ) {  // 8 blocks
-					Main.dust[i] = new Dust();
-					dustsCleaned++;
-				}
-			}
-
-			if( UPMod.IsDebugModeInfo() && dustsCleaned > 0 ) {
-				Main.NewText( "dusts cleared: " + dustsCleaned );
-			}
-		}
+		public JsonConfig<UPConfigData> ConfigJson { get; private set; }
+		public UPConfigData Config => this.ConfigJson.Data;
 
 
 
@@ -55,10 +21,44 @@ namespace UnclutteredProjectiles {
 
 		public UPMod() {
 			UPMod.Instance = this;
+
+			this.ConfigJson = new JsonConfig<UPConfigData>(
+				UPConfigData.ConfigFileName,
+				ConfigurationDataBase.RelativePath,
+				new UPConfigData()
+			);
+		}
+
+		public override void Load() {
+			this.LoadConfig();
 		}
 
 		public override void Unload() {
 			UPMod.Instance = null;
+		}
+
+		////
+
+		private void LoadConfig() {
+			var mymod = UPMod.Instance;
+
+			if( !this.ConfigJson.LoadFile() ) {
+				this.Config.SetDefaults();
+				this.ConfigJson.SaveFile();
+				ErrorLogger.Log( "Uncluttered Projectiles config " + mymod.Version.ToString() + " created." );
+			}
+
+			if( this.Config.UpdateToLatestVersion() ) {
+				ErrorLogger.Log( "Uncluttered Projectiles updated to " + mymod.Version.ToString() );
+				this.ConfigJson.SaveFile();
+			}
+		}
+
+
+		////////////////
+
+		public override object Call( params object[] args ) {
+			return ModBoilerplateHelpers.HandleModCall( typeof(UPAPI), args );
 		}
 	}
 }
