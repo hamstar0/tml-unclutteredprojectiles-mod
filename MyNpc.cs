@@ -26,6 +26,8 @@ namespace UnclutteredProjectiles {
 		}
 
 		public static bool IsNearBoss( Vector2 position ) {
+			var mymod = UPMod.Instance;
+
 			foreach( int npcWho in UPNpc.BossWhos.ToArray() ) {
 				NPC npc = Main.npc[npcWho];
 				if( npc == null || !npc.active ) {
@@ -35,7 +37,7 @@ namespace UnclutteredProjectiles {
 
 				int mydist = (int)Vector2.DistanceSquared( position, npc.position );
 
-				if( mydist < UPMod.GetProjectileDimNearBossDistanceSquared() ) {
+				if( mydist < mymod.Config.GetProjectileDimNearBossDistanceSquared ) {
 					return true;
 				}
 			}

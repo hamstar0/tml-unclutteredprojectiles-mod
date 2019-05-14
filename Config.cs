@@ -14,6 +14,29 @@ namespace UnclutteredProjectiles.Config {
 
 		public bool DebugModeInfo = false;
 
+		public bool AreFriendlyProjectilesLikelySpam = true;
+		public bool AreHostileProjectilesLikelySpam = false;
+		
+		public bool UnclutterDuringBosses = true;
+		public bool UnclutterDuringInvasions = true;
+		public bool UnclutterDuringEclipses = true;
+
+		public bool UnclutterDuringLunarApocalypse = false;
+
+		////
+
+		public int GetDustRemoveRate = 2000;
+
+		////
+
+		public int GetDustRemoveDistanceSquared = 25600;   //10 blocks (squared)
+		public int GetProjectileDimNearBossDistanceSquared = 36864;   //12 blocks (squared)
+		public int GetProjectileDimNearCurrentPlayerDistanceSquared = 2359296; //96 blocks (squared)
+
+		////
+
+		public float GetProjectileDimPercent = 0.9f;
+
 
 
 		////////////////

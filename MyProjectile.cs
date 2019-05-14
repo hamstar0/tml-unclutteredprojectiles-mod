@@ -15,9 +15,10 @@ namespace UnclutteredProjectiles {
 		////////////////
 		
 		public static bool IsSpamProjectile( Projectile projectile ) {
+			var config = UPMod.Instance.Config;
 			return UPMod.IsSpamLikely() && (
-				( UPMod.AreFriendlyProjectilesLikelySpam() && projectile.friendly )
-				|| ( UPMod.AreHostileProjectilesLikelySpam() && projectile.hostile )
+				( config.AreFriendlyProjectilesLikelySpam && projectile.friendly )
+				|| ( config.AreHostileProjectilesLikelySpam && projectile.hostile )
 			);
 		}
 
@@ -53,7 +54,7 @@ namespace UnclutteredProjectiles {
 
 		public override bool PreDraw( Projectile projectile, SpriteBatch spriteBatch, Color lightColor ) {
 			if( this.HidePercent > 0f ) {
-				float percent = this.HidePercent * UPMod.GetProjectileDimPercent();
+				float percent = this.HidePercent * UPMod.Instance.Config.GetProjectileDimPercent;
 
 				projectile.alpha = (int)( percent * 255f );
 			}
@@ -73,14 +74,14 @@ namespace UnclutteredProjectiles {
 				if( this.HidingState == 0 ) {
 					if( UPPlayer.IsNearMe( projectile.position ) || UPNpc.IsNearBoss( projectile.position ) ) {
 						if( this.HidePercent < 1f ) {
-							if( UPMod.IsDebugModeInfo() ) {
+							if( UPMod.Instance.Config.DebugModeInfo ) {
 								Main.NewText( "-hide " + projectile.Name + " " + projectile.whoAmI );
 							}
 							this.HidingState = 1;
 						}
 					} else {
 						if( this.HidePercent > 0f ) {
-							if( UPMod.IsDebugModeInfo() ) {
+							if( UPMod.Instance.Config.DebugModeInfo ) {
 								Main.NewText( "+show " + projectile.Name + " " + projectile.whoAmI );
 							}
 							this.HidingState = -1;

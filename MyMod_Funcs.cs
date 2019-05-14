@@ -6,10 +6,11 @@ using Terraria.ModLoader;
 namespace UnclutteredProjectiles {
 	partial class UPMod : Mod {
 		public static bool IsSpamLikely() {
-			bool unclutBoss = UPMod.UnclutterDuringBosses();
-			bool unclutEclip = UPMod.UnclutterDuringEclipses();
-			bool unclutInvas = UPMod.UnclutterDuringInvasions();
-			bool unclutLunar = UPMod.UnclutterDuringLunarApocalypse();
+			var config = UPMod.Instance.Config;
+			bool unclutBoss = config.UnclutterDuringBosses;
+			bool unclutEclip = config.UnclutterDuringEclipses;
+			bool unclutInvas = config.UnclutterDuringInvasions;
+			bool unclutLunar = config.UnclutterDuringLunarApocalypse;
 
 			return ( unclutBoss && UPNpc.IsAnyBossActive() )
 				|| ( unclutEclip && Main.eclipse )
@@ -32,13 +33,13 @@ namespace UnclutteredProjectiles {
 				var dust = Main.dust[i];
 				if( dust == null || !dust.active ) { continue; }
 				
-				if( Vector2.DistanceSquared(dust.position, position ) < UPMod.GetDustRemoveDistanceSquared() ) {  // 8 blocks
+				if( Vector2.DistanceSquared(dust.position, position ) < mymod.Config.GetDustRemoveDistanceSquared ) {  // 8 blocks
 					Main.dust[i] = new Dust();
 					dustsCleaned++;
 				}
 			}
 
-			if( UPMod.IsDebugModeInfo() && dustsCleaned > 0 ) {
+			if( mymod.Config.DebugModeInfo && dustsCleaned > 0 ) {
 				Main.NewText( "dusts cleared: " + dustsCleaned );
 			}
 		}
