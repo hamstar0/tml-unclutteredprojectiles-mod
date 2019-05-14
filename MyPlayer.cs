@@ -10,9 +10,11 @@ using UnclutteredProjectiles.NetProtocols;
 namespace UnclutteredProjectiles {
 	class UPPlayer : ModPlayer {
 		public static bool IsNearMe( Vector2 position ) {
+			var mymod = UPMod.Instance;
 			int mydist = (int)Vector2.DistanceSquared( position, Main.LocalPlayer.position );
+			int projDimDistSqr = mymod.Config.ProjectileDimNearCurrentPlayerDistance * mymod.Config.ProjectileDimNearCurrentPlayerDistance;
 
-			return mydist < UPMod.Instance.Config.ProjectileDimNearCurrentPlayerDistanceSquared;
+			return mydist < projDimDistSqr;
 		}
 
 
@@ -76,7 +78,7 @@ namespace UnclutteredProjectiles {
 			if( ++this.Timer >= 10 ) {
 				this.Timer = 0;
 
-				int dustsGone = UPMod.Instance.Config.DustRemoveRate;
+				int dustsGone = UPMod.Instance.Config.DustRemoveRatePerTenthOfASecond;
 
 				UPProjectile.RemoveDustsNearProjectiles( this.DustRangeCheckIdx, dustsGone );
 

@@ -25,13 +25,13 @@ namespace UnclutteredProjectiles.Config {
 
 		////
 
-		public int DustRemoveRate = 2000;
-		public int DustRemoveDistanceSquared = 25600;   //10 blocks (squared)
+		public int DustRemoveRatePerTenthOfASecond = 2000;
+		public int DustRemoveDistance = 160;   //10 blocks
 
 		////
 
-		public int ProjectileDimNearBossDistanceSquared = 36864;   //12 blocks (squared)
-		public int ProjectileDimNearCurrentPlayerDistanceSquared = 2359296; //96 blocks (squared)
+		public int ProjectileDimNearBossDistance = 192;   //12 blocks (squared)
+		public int ProjectileDimNearCurrentPlayerDistance = 1536; //96 blocks (squared)
 		public float ProjectileDimPercent = 0.9f;
 
 
