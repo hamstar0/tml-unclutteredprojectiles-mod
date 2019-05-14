@@ -54,7 +54,7 @@ namespace UnclutteredProjectiles {
 
 		public override bool PreDraw( Projectile projectile, SpriteBatch spriteBatch, Color lightColor ) {
 			if( this.HidePercent > 0f ) {
-				float percent = this.HidePercent * UPMod.Instance.Config.GetProjectileDimPercent;
+				float percent = this.HidePercent * UPMod.Instance.Config.ProjectileDimPercent;
 
 				projectile.alpha = (int)( percent * 255f );
 			}

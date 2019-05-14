@@ -33,7 +33,7 @@ namespace UnclutteredProjectiles {
 				var dust = Main.dust[i];
 				if( dust == null || !dust.active ) { continue; }
 				
-				if( Vector2.DistanceSquared(dust.position, position ) < mymod.Config.GetDustRemoveDistanceSquared ) {  // 8 blocks
+				if( Vector2.DistanceSquared(dust.position, position ) < mymod.Config.DustRemoveDistanceSquared ) {  // 8 blocks
 					Main.dust[i] = new Dust();
 					dustsCleaned++;
 				}

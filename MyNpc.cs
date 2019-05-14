@@ -37,7 +37,7 @@ namespace UnclutteredProjectiles {
 
 				int mydist = (int)Vector2.DistanceSquared( position, npc.position );
 
-				if( mydist < mymod.Config.GetProjectileDimNearBossDistanceSquared ) {
+				if( mydist < mymod.Config.ProjectileDimNearBossDistanceSquared ) {
 					return true;
 				}
 			}
