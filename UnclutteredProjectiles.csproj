@@ -36,6 +36,7 @@
   <ItemGroup>
     <Compile Include="API.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="MyMod_Meta.cs" />
     <Compile Include="MyMod_Funcs.cs" />
     <Compile Include="MyProjectile.cs" />
     <Compile Include="MyPlayer.cs" />
