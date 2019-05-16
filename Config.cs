@@ -32,14 +32,13 @@ namespace UnclutteredProjectiles.Config {
 
 		public int ProjectileDimNearBossDistance = 192;   //12 blocks (squared)
 		public int ProjectileDimNearCurrentPlayerDistance = 1536; //96 blocks (squared)
-		public float ProjectileDimPercent = 0.9f;
+		public float ProjectileDimPercent = 0.8f;
 
 
 
 		////////////////
 
-		public void SetDefaults() {
-		}
+		public void SetDefaults() { }
 
 
 		////////////////
@@ -59,6 +58,11 @@ namespace UnclutteredProjectiles.Config {
 
 			if( this.VersionSinceUpdate == "" ) {
 				this.SetDefaults();
+			}
+			if( versSince < new Version(1,1,0) ) {
+				if( this.ProjectileDimPercent == 0.9f ) {
+					this.ProjectileDimPercent = newConfig.ProjectileDimPercent;
+				}
 			}
 
 			this.VersionSinceUpdate = mymod.Version.ToString();

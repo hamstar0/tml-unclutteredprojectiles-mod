@@ -50,6 +50,9 @@ namespace UnclutteredProjectiles {
 		////////////////
 		
 		public override bool PreAI( NPC npc ) {
+			if( Main.netMode == 2 ) {
+				return base.PreAI( npc );
+			}
 			if( npc.boss ) {
 				UPNpc.BossWhos.Add( npc.whoAmI );
 			}

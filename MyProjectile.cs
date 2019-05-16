@@ -64,6 +64,9 @@ namespace UnclutteredProjectiles {
 		////////////////
 
 		public override bool PreAI( Projectile projectile ) {
+			if( Main.netMode == 2 ) {
+				return base.PreAI( projectile );
+			}
 			if( !UPProjectile.IsSpamProjectile(projectile) ) {
 				return base.PreAI( projectile );
 			}

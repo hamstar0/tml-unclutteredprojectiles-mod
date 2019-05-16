@@ -1,10 +1,8 @@
-using HamstarHelpers.Components.Network;
 using HamstarHelpers.Helpers.DebugHelpers;
 using Microsoft.Xna.Framework;
 using System;
 using Terraria;
 using Terraria.ModLoader;
-using UnclutteredProjectiles.NetProtocols;
 
 
 namespace UnclutteredProjectiles {
@@ -62,7 +60,7 @@ namespace UnclutteredProjectiles {
 		}
 
 		private void OnConnectClient() {
-			PacketProtocolRequestToServer.QuickRequest<ModSettingsProtocol>( -1 );
+			//PacketProtocolRequestToServer.QuickRequest<ModSettingsProtocol>( -1 );
 		}
 
 		private void OnConnectServer() {
@@ -72,6 +70,7 @@ namespace UnclutteredProjectiles {
 		////////////////
 
 		public override void PreUpdate() {
+			if( Main.netMode == 2 ) { return; }
 			if( this.player.whoAmI != Main.myPlayer ) { return; }
 			if( this.player.dead ) { return; }
 

@@ -42,7 +42,6 @@
     <Compile Include="MyPlayer.cs" />
     <Compile Include="MyMod.cs" />
     <Compile Include="MyNpc.cs" />
-    <Compile Include="NetProtocols\ModSettingsProtocol.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="HamstarHelpers">
@@ -73,6 +72,7 @@
   <ItemGroup>
     <Content Include="build.txt" />
     <Content Include="description.txt" />
+    <Content Include="icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="LICENSE" />
