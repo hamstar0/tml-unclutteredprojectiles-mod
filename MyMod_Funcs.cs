@@ -1,3 +1,4 @@
+using HamstarHelpers.Helpers.WorldHelpers;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
@@ -11,8 +12,15 @@ namespace UnclutteredProjectiles {
 			bool unclutEclip = config.UnclutterDuringEclipses;
 			bool unclutInvas = config.UnclutterDuringInvasions;
 			bool unclutLunar = config.UnclutterDuringLunarApocalypse;
+			bool isBossActive = UPNpc.IsAnyBossActive();
 
-			return ( unclutBoss && UPNpc.IsAnyBossActive() )
+			if( unclutBoss && !isBossActive ) {	// No boss active?
+				if( !WorldHelpers.IsAboveWorldSurface( Main.LocalPlayer.position ) ) {	// Not above world surface?
+					return false;
+				}
+			}
+
+			return ( unclutBoss && isBossActive )
 				|| ( unclutEclip && Main.eclipse )
 				|| ( unclutInvas && Main.invasionType != 0 )
 				|| ( unclutInvas && Main.pumpkinMoon )

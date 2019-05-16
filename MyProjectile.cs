@@ -16,10 +16,15 @@ namespace UnclutteredProjectiles {
 		
 		public static bool IsSpamProjectile( Projectile projectile ) {
 			var config = UPMod.Instance.Config;
-			return UPMod.IsSpamLikely() && (
-				( config.AreFriendlyProjectilesLikelySpam && projectile.friendly )
+			
+			if( !UPMod.IsSpamLikely() ) {
+				return false;
+			}
+			
+			return ( config.AreFriendlyProjectilesLikelySpam && projectile.friendly )
 				|| ( config.AreHostileProjectilesLikelySpam && projectile.hostile )
-			);
+				|| ( config.AreFriendlyAndHostileProjectilesLikelySpam && projectile.friendly && projectile.hostile )
+				|| ( config.AreUnfriendlyAndUnhostileProjectilesLikelySpam && !projectile.friendly && !projectile.hostile );
 		}
 
 		public static void RemoveDustsNearProjectiles( int dustStartIdx, int dustAmount ) {

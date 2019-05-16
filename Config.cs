@@ -16,7 +16,9 @@ namespace UnclutteredProjectiles.Config {
 
 		public bool AreFriendlyProjectilesLikelySpam = true;
 		public bool AreHostileProjectilesLikelySpam = false;
-		
+		public bool AreFriendlyAndHostileProjectilesLikelySpam = false;
+		public bool AreUnfriendlyAndUnhostileProjectilesLikelySpam = true;
+
 		public bool UnclutterDuringBosses = true;
 		public bool UnclutterDuringInvasions = true;
 		public bool UnclutterDuringEclipses = true;
