@@ -20,6 +20,10 @@ namespace UnclutteredProjectiles {
 			if( !UPMod.IsSpamLikely() ) {
 				return false;
 			}
+
+			if( Main.projPet[ projectile.type ] || Main.lightPet[ projectile.type ] || Main.vanityPet[ projectile.type ] ) {
+				return false;
+			}
 			
 			return ( config.AreFriendlyProjectilesLikelySpam && projectile.friendly )
 				|| ( config.AreHostileProjectilesLikelySpam && projectile.hostile )
