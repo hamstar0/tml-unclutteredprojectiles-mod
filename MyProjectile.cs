@@ -23,13 +23,13 @@ namespace UnclutteredProjectiles {
 			}
 
 			if( projType >= 0 ) {
-				if( Main.projPet.Length < projType && Main.projPet[ projType ] ) {
+				if( Main.projPet.Length > projType  && Main.projPet[ projType ] ) {
 					return false;
 				}
-				if( Main.lightPet.Length < projType && Main.lightPet[ projType ] ) {
+				if( Main.lightPet.Length > projType && Main.lightPet[ projType ] ) {
 					return false;
 				}
-				if( Main.vanityPet.Length < projType && Main.vanityPet[ projType ] ) {
+				if( Main.vanityPet.Length > projType && Main.vanityPet[ projType ] ) {
 					return false;
 				}
 			}
