@@ -16,13 +16,22 @@ namespace UnclutteredProjectiles {
 		
 		public static bool IsSpamProjectile( Projectile projectile ) {
 			var config = UPMod.Instance.Config;
+			int projType = projectile.type;
 			
 			if( !UPMod.IsSpamLikely() ) {
 				return false;
 			}
 
-			if( Main.projPet[ projectile.type ] || Main.lightPet[ projectile.type ] || Main.vanityPet[ projectile.type ] ) {
-				return false;
+			if( projType >= 0 ) {
+				if( Main.projPet.Length < projType && Main.projPet[ projType ] ) {
+					return false;
+				}
+				if( Main.lightPet.Length < projType && Main.lightPet[ projType ] ) {
+					return false;
+				}
+				if( Main.vanityPet.Length < projType && Main.vanityPet[ projType ] ) {
+					return false;
+				}
 			}
 			
 			return ( config.AreFriendlyProjectilesLikelySpam && projectile.friendly )
