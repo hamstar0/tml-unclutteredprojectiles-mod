@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria;
+using Terraria.ID;
 using Terraria.ModLoader;
 
 
@@ -26,10 +27,7 @@ namespace UnclutteredProjectiles {
 				if( Main.projPet.Length > projType  && Main.projPet[ projType ] ) {
 					return false;
 				}
-				if( Main.lightPet.Length > projType && Main.lightPet[ projType ] ) {
-					return false;
-				}
-				if( Main.vanityPet.Length > projType && Main.vanityPet[ projType ] ) {
+				if( ProjectileID.Sets.LightPet.Length > projType && ProjectileID.Sets.LightPet[ projType ] ) {
 					return false;
 				}
 			}
