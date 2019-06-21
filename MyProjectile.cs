@@ -1,3 +1,4 @@
+using HamstarHelpers.Helpers.ProjectileHelpers;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
@@ -30,6 +31,12 @@ namespace UnclutteredProjectiles {
 				if( ProjectileID.Sets.LightPet.Length > projType && ProjectileID.Sets.LightPet[ projType ] ) {
 					return false;
 				}
+			}
+
+			string projUid = ProjectileIdentityHelpers.GetProperUniqueId( projType );
+
+			if( config.NotSpamProjectiles.Contains(projUid) ) {
+				return false;
 			}
 			
 			return ( config.AreFriendlyProjectilesLikelySpam && projectile.friendly )

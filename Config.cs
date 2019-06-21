@@ -1,5 +1,8 @@
 ﻿using HamstarHelpers.Components.Config;
+using HamstarHelpers.Helpers.ProjectileHelpers;
 using System;
+using System.Collections.Generic;
+using Terraria.ID;
 
 
 namespace UnclutteredProjectiles.Config {
@@ -36,11 +39,21 @@ namespace UnclutteredProjectiles.Config {
 		public int ProjectileDimNearCurrentPlayerDistance = 1536; //96 blocks (squared)
 		public float ProjectileDimPercent = 0.8f;
 
+		///
+
+		public ISet<string> NotSpamProjectiles = new HashSet<string>();
+
 
 
 		////////////////
 
-		public void SetDefaults() { }
+		public void SetDefaults() {
+			this.NotSpamProjectiles.Clear();
+			this.NotSpamProjectiles.Add( ProjectileIdentityHelpers.GetProperUniqueId(ProjectileID.CrystalVileShardHead) );
+			this.NotSpamProjectiles.Add( ProjectileIdentityHelpers.GetProperUniqueId(ProjectileID.CrystalVileShardShaft) );
+			this.NotSpamProjectiles.Add( ProjectileIdentityHelpers.GetProperUniqueId(ProjectileID.VilethornBase) );
+			this.NotSpamProjectiles.Add( ProjectileIdentityHelpers.GetProperUniqueId(ProjectileID.VilethornTip) );
+		}
 
 
 		////////////////
@@ -65,6 +78,9 @@ namespace UnclutteredProjectiles.Config {
 				if( this.ProjectileDimPercent == 0.9f ) {
 					this.ProjectileDimPercent = newConfig.ProjectileDimPercent;
 				}
+			}
+			if( versSince < new Version(1,1,1,4) ) {
+				this.SetDefaults();
 			}
 
 			this.VersionSinceUpdate = mymod.Version.ToString();
