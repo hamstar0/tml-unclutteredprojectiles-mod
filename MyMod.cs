@@ -1,5 +1,4 @@
-using HamstarHelpers.Components.Config;
-using HamstarHelpers.Helpers.TmlHelpers.ModHelpers;
+using HamstarHelpers.Helpers.TModLoader.Mods;
 using Terraria.ModLoader;
 using UnclutteredProjectiles.Config;
 
@@ -12,8 +11,7 @@ namespace UnclutteredProjectiles {
 
 		////////////////
 
-		public JsonConfig<UPConfigData> ConfigJson { get; private set; }
-		public UPConfigData Config => this.ConfigJson.Data;
+		public UPConfigData Config => this.GetConfig<UPConfigData>();
 
 
 
@@ -21,37 +19,13 @@ namespace UnclutteredProjectiles {
 
 		public UPMod() {
 			UPMod.Instance = this;
-
-			this.ConfigJson = new JsonConfig<UPConfigData>(
-				UPConfigData.ConfigFileName,
-				ConfigurationDataBase.RelativePath,
-				new UPConfigData()
-			);
 		}
 
 		public override void Load() {
-			this.LoadConfig();
 		}
 
 		public override void Unload() {
 			UPMod.Instance = null;
-		}
-
-		////
-
-		private void LoadConfig() {
-			var mymod = UPMod.Instance;
-
-			if( !this.ConfigJson.LoadFile() ) {
-				this.Config.SetDefaults();
-				this.ConfigJson.SaveFile();
-				ErrorLogger.Log( "Uncluttered Projectiles config " + mymod.Version.ToString() + " created." );
-			}
-
-			if( this.Config.UpdateToLatestVersion() ) {
-				ErrorLogger.Log( "Uncluttered Projectiles updated to " + mymod.Version.ToString() );
-				this.ConfigJson.SaveFile();
-			}
 		}
 
 
