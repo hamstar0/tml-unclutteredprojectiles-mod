@@ -59,7 +59,7 @@ namespace UnclutteredProjectiles.Config {
 
 		///
 
-		public ISet<ProjectileDefinition> NotSpamProjectiles = new HashSet<ProjectileDefinition> {
+		public HashSet<ProjectileDefinition> NotSpamProjectiles = new HashSet<ProjectileDefinition> {
 			new ProjectileDefinition( ProjectileID.CrystalVileShardHead ),
 			new ProjectileDefinition( ProjectileID.CrystalVileShardShaft ),
 			new ProjectileDefinition( ProjectileID.VilethornBase ),
