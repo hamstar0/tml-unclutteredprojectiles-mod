@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Runtime.Serialization;
 using Terraria.ID;
 using Terraria.ModLoader.Config;
 
@@ -60,23 +59,11 @@ namespace UnclutteredProjectiles.Config {
 
 		///
 
-		public ISet<ProjectileDefinition> NotSpamProjectiles = new HashSet<ProjectileDefinition>();
-
-
-
-		////////////////
-
-		[OnDeserialized]
-		internal void OnDeserializedMethod( StreamingContext context ) {
-			if( this.NotSpamProjectiles != null ) {
-				return;
-			}
-
-			this.NotSpamProjectiles = new HashSet<ProjectileDefinition>();
-			this.NotSpamProjectiles.Add( new ProjectileDefinition( ProjectileID.CrystalVileShardHead ) );
-			this.NotSpamProjectiles.Add( new ProjectileDefinition( ProjectileID.CrystalVileShardShaft ) );
-			this.NotSpamProjectiles.Add( new ProjectileDefinition( ProjectileID.VilethornBase ) );
-			this.NotSpamProjectiles.Add( new ProjectileDefinition( ProjectileID.VilethornTip ) );
-		}
+		public ISet<ProjectileDefinition> NotSpamProjectiles = new HashSet<ProjectileDefinition> {
+			new ProjectileDefinition( ProjectileID.CrystalVileShardHead ),
+			new ProjectileDefinition( ProjectileID.CrystalVileShardShaft ),
+			new ProjectileDefinition( ProjectileID.VilethornBase ),
+			new ProjectileDefinition( ProjectileID.VilethornTip )
+		};
 	}
 }
