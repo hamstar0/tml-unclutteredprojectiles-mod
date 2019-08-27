@@ -7,7 +7,7 @@ using Terraria.ModLoader.Config;
 
 namespace UnclutteredProjectiles.Config {
 	public class UPConfigData : ModConfig {
-		public override ConfigScope Mode => ConfigScope.ServerSide;
+		public override ConfigScope Mode => ConfigScope.ClientSide;
 
 
 		////
@@ -65,5 +65,17 @@ namespace UnclutteredProjectiles.Config {
 			new ProjectileDefinition( ProjectileID.VilethornBase ),
 			new ProjectileDefinition( ProjectileID.VilethornTip )
 		};
+
+
+
+		////////////////
+
+		public override ModConfig Clone() {
+			var clone = (UPConfigData)base.Clone();
+
+			clone.NotSpamProjectiles = new HashSet<ProjectileDefinition>( this.NotSpamProjectiles );
+
+			return clone;
+		}
 	}
 }
