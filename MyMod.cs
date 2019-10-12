@@ -11,7 +11,7 @@ namespace UnclutteredProjectiles {
 
 		////////////////
 
-		public UPConfigData Config => this.GetConfig<UPConfigData>();
+		public UPConfigData Config => ModContent.GetInstance<UPConfigData>();
 
 
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HamstarHelpers.Classes.UI.ModConfig;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Terraria.ID;
@@ -40,24 +41,32 @@ namespace UnclutteredProjectiles.Config {
 
 		////
 
+		[Range( 0, 6000 )]
 		[DefaultValue( 2000 )]
 		public int DustRemoveRatePerTenthOfASecond = 2000;
 
+		[Range( 0, 10000 )]
 		[DefaultValue( 160 )]
 		public int DustRemoveDistance = 160;   //10 blocks
 
 		////
 
+		[Label( "Projectile dimming tile distance^2 near boss" )]
+		[Range( 0, 50 * 50 )]
 		[DefaultValue( 192 )]
 		public int ProjectileDimNearBossDistance = 192;   //12 blocks (squared)
 
+		[Label( "Projectile dimming tile distance^2 near me" )]
+		[Range( 0, 192 * 192 )]
 		[DefaultValue( 1536 )]
 		public int ProjectileDimNearCurrentPlayerDistance = 1536; //96 blocks (squared)
 
+		[Range( 0f, 1f )]
 		[DefaultValue( 0.8f )]
+		[CustomModConfigItem( typeof( FloatInputElement ) )]
 		public float ProjectileDimPercent = 0.8f;
 
-		///
+		////
 
 		public HashSet<ProjectileDefinition> NotSpamProjectiles = new HashSet<ProjectileDefinition> {
 			new ProjectileDefinition( ProjectileID.CrystalVileShardHead ),
