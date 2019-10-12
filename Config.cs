@@ -7,6 +7,11 @@ using Terraria.ModLoader.Config;
 
 
 namespace UnclutteredProjectiles.Config {
+	class MyFloatInputElement : FloatInputElement { }
+
+
+
+
 	public class UPConfigData : ModConfig {
 		public override ConfigScope Mode => ConfigScope.ClientSide;
 
@@ -63,7 +68,7 @@ namespace UnclutteredProjectiles.Config {
 
 		[Range( 0f, 1f )]
 		[DefaultValue( 0.8f )]
-		[CustomModConfigItem( typeof( FloatInputElement ) )]
+		[CustomModConfigItem( typeof( MyFloatInputElement ) )]
 		public float ProjectileDimPercent = 0.8f;
 
 		////
