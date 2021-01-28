@@ -1,24 +1,12 @@
-using HamstarHelpers.Helpers.Debug;
-using Microsoft.Xna.Framework;
 using System;
+using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.Debug;
 
 
 namespace UnclutteredProjectiles {
 	class UPPlayer : ModPlayer {
-		public static bool IsNearMe( Vector2 position ) {
-			var mymod = UPMod.Instance;
-			int mydist = (int)Vector2.DistanceSquared( position, Main.LocalPlayer.position );
-			int projDimDistSqr = mymod.Config.ProjectileDimNearCurrentPlayerDistance * mymod.Config.ProjectileDimNearCurrentPlayerDistance;
-
-			return mydist < projDimDistSqr;
-		}
-
-
-
-		////////////////
-
 		private int Timer = 0;
 
 		private int DustRangeCheckIdx = 0;
@@ -32,43 +20,6 @@ namespace UnclutteredProjectiles {
 
 		////////////////
 
-		public override void SyncPlayer( int toWho, int fromWho, bool newPlayer ) {
-			if( Main.netMode == 2 ) {
-				if( toWho == -1 && fromWho == this.player.whoAmI ) {
-					this.OnConnectServer();
-				}
-			}
-		}
-
-		public override void OnEnterWorld( Player player ) {
-			if( player.whoAmI != Main.myPlayer ) { return; }
-			if( this.player.whoAmI != Main.myPlayer ) { return; }
-
-			var mymod = (UPMod)this.mod;
-
-			if( Main.netMode == 0 ) {
-				this.OnConnectSingle();
-			} else if( Main.netMode == 1 ) {
-				this.OnConnectClient();
-			}
-		}
-
-
-		////////////////
-
-		private void OnConnectSingle() {
-		}
-
-		private void OnConnectClient() {
-			//PacketProtocolRequestToServer.QuickRequest<ModSettingsProtocol>( -1 );
-		}
-
-		private void OnConnectServer() {
-		}
-
-
-		////////////////
-
 		public override void PreUpdate() {
 			if( Main.netMode == 2 ) { return; }
 			if( this.player.whoAmI != Main.myPlayer ) { return; }
@@ -77,14 +28,21 @@ namespace UnclutteredProjectiles {
 			if( ++this.Timer >= 10 ) {
 				this.Timer = 0;
 
-				int dustsGone = UPMod.Instance.Config.DustRemoveRatePerTenthOfASecond;
+				this.CleanupNextBatchOfHiddenDusts();
+			}
+		}
 
-				UPProjectile.RemoveDustsNearProjectiles( this.DustRangeCheckIdx, dustsGone );
 
-				this.DustRangeCheckIdx += dustsGone;
-				if( this.DustRangeCheckIdx >= Main.dust.Length ) {
-					this.DustRangeCheckIdx = 0;
-				}
+		////////////////
+
+		private void CleanupNextBatchOfHiddenDusts() {
+			int dustsGone = UPMod.Instance.Config.DustRemoveRatePerSixthOfASecond;
+
+			UPProjectile.RemoveDustsNearHiddenProjectiles( this.DustRangeCheckIdx, dustsGone );
+
+			this.DustRangeCheckIdx += dustsGone;
+			if( this.DustRangeCheckIdx >= Main.dust.Length ) {
+				this.DustRangeCheckIdx = 0;
 			}
 		}
 	}

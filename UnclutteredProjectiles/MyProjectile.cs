@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Terraria;
@@ -9,18 +8,18 @@ using Terraria.ModLoader.Config;
 
 
 namespace UnclutteredProjectiles {
-	class UPProjectile : GlobalProjectile {
+	partial class UPProjectile : GlobalProjectile {
 		private static ISet<int> HiddenProjectiles = new HashSet<int>();
 
 
 
 		////////////////
-		
+
 		public static bool IsSpamProjectile( Projectile projectile ) {
 			var config = UPMod.Instance.Config;
 			int projType = projectile.type;
 			
-			if( !UPMod.IsSpamLikely() ) {
+			if( !UPMod.AreSpamProjectileLikelyToExist() ) {
 				return false;
 			}
 
@@ -43,18 +42,6 @@ namespace UnclutteredProjectiles {
 				|| ( config.AreHostileProjectilesLikelySpam && projectile.hostile )
 				|| ( config.AreFriendlyAndHostileProjectilesLikelySpam && projectile.friendly && projectile.hostile )
 				|| ( config.AreUnfriendlyAndUnhostileProjectilesLikelySpam && !projectile.friendly && !projectile.hostile );
-		}
-
-		public static void RemoveDustsNearProjectiles( int dustStartIdx, int dustAmount ) {
-			foreach( int projWho in UPProjectile.HiddenProjectiles.ToArray() ) {
-				Projectile proj = Main.projectile[ projWho ];
-				if( proj == null || !proj.active ) {
-					UPProjectile.HiddenProjectiles.Remove( projWho );
-					continue;
-				}
-
-				UPMod.RemoveDustsNearPosition( proj.position, dustStartIdx, dustAmount );
-			}
 		}
 
 
@@ -97,55 +84,12 @@ namespace UnclutteredProjectiles {
 			if( ++this.Timer > 5 ) {
 				this.Timer = 0;
 
-				if( this.HidingState == 0 ) {
-					if( UPPlayer.IsNearMe( projectile.position ) || UPNpc.IsNearBoss( projectile.position ) ) {
-						if( this.HidePercent < 1f ) {
-							if( UPMod.Instance.Config.DebugModeInfo ) {
-								Main.NewText( "-hide " + projectile.Name + " " + projectile.whoAmI );
-							}
-							this.HidingState = 1;
-						}
-					} else {
-						if( this.HidePercent > 0f ) {
-							if( UPMod.Instance.Config.DebugModeInfo ) {
-								Main.NewText( "+show " + projectile.Name + " " + projectile.whoAmI );
-							}
-							this.HidingState = -1;
-						}
-					}
-				}
-
-				if( this.HidePercent == 1f ) {
-					UPProjectile.HiddenProjectiles.Add( projectile.whoAmI );
-				} else {
-					UPProjectile.HiddenProjectiles.Remove( projectile.whoAmI );
-				}
+				this.UpdateHideState( projectile );
 			}
 
-			this.UpdateHideState();
+			this.UpdateHideAmount();
 
 			return base.PreAI( projectile );
-		}
-
-
-		////////////////
-
-		private void UpdateHideState() {
-			if( this.HidingState == 1 ) {
-				if( this.HidePercent < 1f ) {
-					this.HidePercent += 1f / 5f;
-				} else {
-					this.HidePercent = 1f;
-					this.HidingState = 0;
-				}
-			} else if( this.HidingState == -1 ) {
-				if( this.HidePercent > 0f ) {
-					this.HidePercent -= 1f / 5f;
-				} else {
-					this.HidePercent = 0f;
-					this.HidingState = 0;
-				}
-			}
 		}
 	}
 }

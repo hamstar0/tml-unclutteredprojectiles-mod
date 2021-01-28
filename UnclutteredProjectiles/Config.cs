@@ -1,9 +1,9 @@
-﻿using HamstarHelpers.Classes.UI.ModConfig;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Terraria.ID;
 using Terraria.ModLoader.Config;
+using HamstarHelpers.Classes.UI.ModConfig;
 
 
 namespace UnclutteredProjectiles.Config {
@@ -48,7 +48,7 @@ namespace UnclutteredProjectiles.Config {
 
 		[Range( 0, 6000 )]
 		[DefaultValue( 2000 )]
-		public int DustRemoveRatePerTenthOfASecond = 2000;
+		public int DustRemoveRatePerSixthOfASecond = 2000;
 
 		[Range( 0, 10000 )]
 		[DefaultValue( 160 )]

@@ -1,12 +1,24 @@
-using HamstarHelpers.Helpers.World;
 using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.World;
 
 
 namespace UnclutteredProjectiles {
 	partial class UPMod : Mod {
-		public static bool IsSpamLikely() {
+		public static bool IsNearMeForProjectileDimming( Vector2 position ) {
+			var mymod = UPMod.Instance;
+			int mydistSqr = (int)Vector2.DistanceSquared( position, Main.LocalPlayer.position );
+			int projDimDist = mymod.Config.ProjectileDimNearCurrentPlayerDistance;
+			int projDimDistSqr = projDimDist * projDimDist;
+
+			return mydistSqr < projDimDistSqr;
+		}
+
+
+		////////////////
+
+		public static bool AreSpamProjectileLikelyToExist() {
 			var config = UPMod.Instance.Config;
 			bool unclutBoss = config.UnclutterDuringBosses;
 			bool unclutEclip = config.UnclutterDuringEclipses;
@@ -27,6 +39,9 @@ namespace UnclutteredProjectiles {
 				|| ( unclutInvas && Main.snowMoon )
 				|| ( unclutLunar && NPC.LunarApocalypseIsUp );
 		}
+
+
+		////////////////
 
 		public static void RemoveDustsNearPosition( Vector2 position, int dustIdxStart, int dustAmount ) {
 			var mymod = UPMod.Instance;

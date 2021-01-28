@@ -1,5 +1,5 @@
-using HamstarHelpers.Helpers.TModLoader.Mods;
 using Terraria.ModLoader;
+using HamstarHelpers.Helpers.TModLoader.Mods;
 using UnclutteredProjectiles.Config;
 
 
